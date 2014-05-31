@@ -20,7 +20,7 @@ case class ProfileInfo(team: String,
                        members: Option[List[Member]] = None) {
 
   def isFilled: Boolean =
-    githubUrl.isDefined && members.isDefined
+    this.githubUrl.isDefined
 }
 
 case class Member(name: String, email: String)

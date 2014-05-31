@@ -1,0 +1,25 @@
+@(profileInfoForm: Form[ProfileInfo])(implicit session: Session)
+
+@main {
+  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/login.css")'>
+} {
+  <div id="login-form">
+    <form method="POST" action="@routes.Application.profileInfoSubmit()">
+      <div class="input-container">
+        <input name="githubUrl" type="text" placeholder="Github URL"/>
+        @profileInfoForm("githubUrl").error.map { error =>
+          <span class="error">@Messages(error.message, error.args: _*)</span>
+        }
+      </div>
+      <div class="input-container">
+        <input name="appUrl" type="text" placeholder="App URL (In the cloud)"/>
+        @profileInfoForm("appUrl").error.map { error =>
+          <span class="error">@Messages(error.message, error.args: _*)</span>
+        }
+      </div>
+      <div class="input-container">
+        <input class="btn btn-success btn-lg" type="submit" value="Update Profile Info"/>
+      </div>
+    </form>
+  </div>
+}

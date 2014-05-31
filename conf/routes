@@ -13,6 +13,8 @@ GET     /logout                     controllers.Application.logout
 
 GET     /profileInfo                controllers.Application.profileInfo
 
+POST    /profileInfo                controllers.Application.profileInfoSubmit
+
 GET     /register                   controllers.TeamController.displayForm
 
 POST    /register                   controllers.TeamController.submitForm
