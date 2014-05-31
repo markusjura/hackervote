@@ -1,9 +1,9 @@
 @(profileInfoForm: Form[ProfileInfo])(implicit session: Session)
 
 @main {
-  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/login.css")'>
+  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/form.css")'>
 } {
-  <div id="login-form">
+  <div id="form">
     <form method="POST" action="@routes.Application.profileInfoSubmit()">
       <div class="input-container">
         <input name="githubUrl" type="text" placeholder="Github URL"/>

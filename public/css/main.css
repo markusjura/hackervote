@@ -1,3 +1,8 @@
 .navbar-right {
   float: right!important;
 }
+
+.container {
+  margin-left: 25px;
+}
+

@@ -8,39 +8,7 @@ import play.api.Logger
 
 object Application extends Secured {
   def index = AuthWithTeam { implicit teamRequest =>
-    Logger.debug(s"filled: ${teamRequest.team.profileInfo.isFilled}")
-
-    if(teamRequest.team.profileInfo.isFilled)
       Ok(views.html.index())
-    else
-      Redirect(routes.Application.profileInfo())
-  }
-
-  def profileInfoForm(profileInfo: ProfileInfo): Form[ProfileInfo] = Form {
-    mapping(
-      "team" -> ignored(profileInfo.team),
-      "password" -> ignored(profileInfo.password),
-      "githubUrl" -> optional(nonEmptyText(minLength = 15)),
-      "appUrl" -> optional(nonEmptyText(minLength = 15)),
-      "members" -> ignored(profileInfo.members)
-    )(ProfileInfo.apply)(ProfileInfo.unapply)
-  }
-
-  def profileInfo = AuthWithTeam { implicit teamRequest =>
-    Ok(views.html.profileInfo(profileInfoForm(teamRequest.team.profileInfo)))
-  }
-
-  def profileInfoSubmit = AuthWithTeam { implicit teamRequest =>
-    val team: Team = teamRequest.team
-    profileInfoForm(team.profileInfo).bindFromRequest.fold(
-      badForm => BadRequest(views.html.profileInfo(badForm)),
-      pf => {
-        Logger.debug(s"pf: $pf")
-        Team.update(team.copy(profileInfo = pf))
-
-        Redirect(routes.Application.index())
-      }
-    )
   }
 
   def login = Action { implicit request =>

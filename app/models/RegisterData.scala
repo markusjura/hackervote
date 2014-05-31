@@ -17,11 +17,7 @@ case class ProfileInfo(team: String,
                        password: String,
                        githubUrl: Option[String] = None,
                        appUrl: Option[String] = None,
-                       members: Option[List[Member]] = None) {
-
-  def isFilled: Boolean =
-    this.githubUrl.isDefined
-}
+                       members: Option[List[Member]] = None)
 
 case class Member(name: String, email: String)
 

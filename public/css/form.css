@@ -1,17 +1,17 @@
-#register-form .input-container {
+#form .input-container {
   padding: 7px 0px;
 }
 
-#register-form input {
+#form input {
   width: 300px;
 }
 
-#register-form input {
+#form input[type="text"], input[type="password"] {
   font-size: 1.5em;
   padding: 5px 10px;
 }
 
-#register-form .error {
+#form .error {
   color: firebrick;
   margin-left: 10px;
   font-size: 1.1em;

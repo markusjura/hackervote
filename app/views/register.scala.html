@@ -1,9 +1,9 @@
-@(registrationForm: Form[LoginData])(implicit session: Session)
+@(registrationForm: Form[ProfileInfo])(implicit session: Session)
 
 @main {
-  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/register.css")'>
+  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/form.css")'>
 } {
-  <div id="register-form">
+  <div id="form">
     <form method="post" action="@routes.TeamController.submitForm()">
       @registrationForm.globalError.map { error =>
         <span class="error">@error.message</span>
@@ -18,6 +18,18 @@
       <div class="input-container">
         <input name="password" type="text" placeholder="Password"/>
         @registrationForm("password").error.map { error =>
+          <span class="error">@Messages(error.message, error.args: _*)</span>
+        }
+      </div>
+      <div>
+        <input name="githubUrl" type="text" placeholder="Github URL"/>
+        @registrationForm("githubUrl").error.map { error =>
+          <span class="error">@Messages(error.message, error.args: _*)</span>
+        }
+      </div>
+      <div class="input-container">
+        <input name="appUrl" type="text" placeholder="App URL (In the cloud)"/>
+        @registrationForm("appUrl").error.map { error =>
           <span class="error">@Messages(error.message, error.args: _*)</span>
         }
       </div>
