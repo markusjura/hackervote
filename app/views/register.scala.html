@@ -1,24 +1,24 @@
-@(loginForm: Form[LoginData])
+@(registrationForm: Form[LoginData])
 
 @main {
   <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/login.css")'>
 } {
-  <div id="login-form">
-    <form method="POST" action="@routes.Application.loginSubmit()">
+  <div id="register-form">
+    <form method="post" action="@routes.TeamController.submitForm()">
       <div class="input-container">
         <input name="team" type="text" placeholder="Team name"/>
-        @loginForm("team").error.map { error =>
+        @registrationForm("team").error.map { error =>
           <span class="error">@Messages(error.message, error.args: _*)</span>
         }
       </div>
       <div class="input-container">
-        <input name="password" type="password" placeholder="Password"/>
-        @loginForm("password").error.map { error =>
+        <input name="password" type="text" placeholder="Password"/>
+        @registrationForm("password").error.map { error =>
           <span class="error">@Messages(error.message, error.args: _*)</span>
         }
       </div>
       <div class="input-container">
-        <input class="btn btn-success btn-lg" type="submit" value="Log In"/>
+        <input class="btn btn-success btn-lg" type="submit" value="Register"/>
       </div>
     </form>
   </div>
