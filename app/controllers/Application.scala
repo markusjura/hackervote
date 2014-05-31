@@ -1,6 +1,5 @@
 package controllers
 
-import play.api._
 import play.api.mvc._
 import models._
 import play.api.data.Form
@@ -53,11 +52,6 @@ object Application extends Secured {
 
   def logout = Action { implicit request =>
     Redirect(routes.Application.login()).withNewSession
-  }
-
-
-  def register = Action { request =>
-    Ok("Register")
   }
 
 }
