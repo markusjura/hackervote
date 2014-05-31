@@ -4,7 +4,6 @@ import play.api.mvc._
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
-import models.LoginData
 import models.ProfileInfo
 import com.mongodb.MongoException.DuplicateKey
 import play.Logger
@@ -17,7 +16,10 @@ object TeamController extends Controller {
       "password" -> nonEmptyText(minLength = 6), //verify the password
       "githubUrl" -> optional(nonEmptyText(minLength = 15)),
       "appUrl" -> optional(nonEmptyText(minLength = 15)),
-      "members" -> ignored(None)
+      "members" -> optional(list(mapping(
+        "name" -> text,
+        "email" -> text
+      )(Member.apply)(Member.unapply)))
     )(ProfileInfo.apply)(ProfileInfo.unapply)
   }
 

@@ -21,7 +21,7 @@
           <span class="error">@Messages(error.message, error.args: _*)</span>
         }
       </div>
-      <div>
+      <div class="input-container">
         <input name="githubUrl" type="text" placeholder="Github URL"/>
         @registrationForm("githubUrl").error.map { error =>
           <span class="error">@Messages(error.message, error.args: _*)</span>
@@ -33,6 +33,54 @@
           <span class="error">@Messages(error.message, error.args: _*)</span>
         }
       </div>
+      <div class="input-container">
+        <input name="members[0].name" type="text" placeholder="Member 1's name"/>
+        @registrationForm("members[0].name").error.map { error =>
+          <span class="error">@Messages(error.message, error.args: _*)</span>
+        }
+      </div>
+      <div class="input-container">
+        <input name="members[0].email" type="text" placeholder="Member 1's email"/>
+        @registrationForm("members[0].email").error.map { error =>
+          <span class="error">@Messages(error.message, error.args: _*)</span>
+        }
+      </div>
+        <div class="input-container">
+            <input name="members[1].name" type="text" placeholder="Member 2's name"/>
+            @registrationForm("members[1].name").error.map { error =>
+            <span class="error">@Messages(error.message, error.args: _*)</span>
+            }
+        </div>
+        <div class="input-container">
+            <input name="members[1].email" type="text" placeholder="Member 2's email"/>
+            @registrationForm("members[1].email").error.map { error =>
+            <span class="error">@Messages(error.message, error.args: _*)</span>
+            }
+        </div>
+        <div class="input-container">
+            <input name="members[2].name" type="text" placeholder="Member 3's name"/>
+            @registrationForm("members[2].name").error.map { error =>
+            <span class="error">@Messages(error.message, error.args: _*)</span>
+            }
+        </div>
+        <div class="input-container">
+            <input name="members[2].email" type="text" placeholder="Member 3's email"/>
+            @registrationForm("members[2].email").error.map { error =>
+            <span class="error">@Messages(error.message, error.args: _*)</span>
+            }
+        </div>
+        <div class="input-container">
+            <input name="members[3].name" type="text" placeholder="Member 4's name"/>
+            @registrationForm("members[3].name").error.map { error =>
+            <span class="error">@Messages(error.message, error.args: _*)</span>
+            }
+        </div>
+        <div class="input-container">
+            <input name="members[3].email" type="text" placeholder="Member 4's email"/>
+            @registrationForm("members[3].email").error.map { error =>
+            <span class="error">@Messages(error.message, error.args: _*)</span>
+            }
+        </div>
       <div class="input-container">
         <input class="btn btn-success btn-lg" type="submit" value="Register"/>
       </div>
