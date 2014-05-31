@@ -5,24 +5,20 @@ import play.api.mvc._
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.Security._
 
-object Application extends Controller {
+object Application extends Secured {
+  def index = Auth { implicit teamRequest =>
+    Team.getByTeamName(teamRequest.session.get("team").get).fold(
+      error => Redirect(routes.Application.logout()),
+      team => {
+        if(team.profileInfo.isFilled) Ok(views.html.index())
+        else Redirect(routes.Application.profileInfo())
+      }
+    )
+  }
 
-  /**
-   * Retrieve team from session
-   */
-  def requestTeam(request: RequestHeader) = request.session.get("team")
-
-  /**
-   * Redirect to login page
-   */
-  def onUnauthorized(request: RequestHeader) = Redirect(routes.Application.login)
-
-  def index = Authenticated(requestTeam, onUnauthorized) { team =>
-    Action { implicit request =>
-      Ok(views.html.index())
-    }
+  def profileInfo = Auth { team =>
+    Ok("profileInfo")
   }
 
   def login = Action { implicit request =>

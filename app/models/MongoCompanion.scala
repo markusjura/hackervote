@@ -68,7 +68,7 @@ trait MongoCompanion[M <: MongoObject, ObjectId] extends ModelCompanion[M, Objec
    * No write concern => If unique key has been violated the entry will not be added but the new ObjectId will be returned
    */
   def add(m: M): ObjectId =
-    dao.insert(m).get
+    dao.insert(m, dao.collection.writeConcern).get
 
   /**
    * Add multiple entries by object
