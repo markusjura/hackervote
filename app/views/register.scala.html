@@ -1,7 +1,7 @@
-@(registrationForm: Form[LoginData])
+@(registrationForm: Form[LoginData])(implicit session: Session)
 
 @main {
-  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/login.css")'>
+  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/register.css")'>
 } {
   <div id="register-form">
     <form method="post" action="@routes.TeamController.submitForm()">

@@ -1,15 +1,10 @@
 package models
 
-import org.bson.types.ObjectId
 import com.mongodb.casbah.Imports._
 import mongoContext._
-import com.novus.salat.annotations._
-import com.mongodb.casbah.Imports
 import se.radley.plugin.salat._
 import com.novus.salat.dao._
 import play.api.Play.current
-import play.api.libs.json.Json
-import utils.json.JsonReadsWrites._
 
 case class Team(id: ObjectId = new ObjectId,
                 profileInfo: ProfileInfo,
