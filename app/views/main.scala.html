@@ -24,7 +24,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href='@routes.TeamController.submitForm()'>Register</a></li>
+              @if(session.get("team").isDefined) {
+                <li><a href='@routes.Application.logout()'>Logout</a></li>
+              } else {
+                <li><a href='@routes.TeamController.submitForm()'>Register</a></li>
+              }
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

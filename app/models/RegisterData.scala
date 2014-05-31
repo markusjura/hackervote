@@ -27,11 +27,12 @@ case class ProfileInfo(team: String,
 case class Member(name: String, email: String)
 
 object Team extends MongoCompanion[Team, ObjectId] {
-
-  implicit val memberFormat = Json.format[Member]
-  implicit val profileInfoFormat = Json.format[ProfileInfo]
-  implicit val voteFormat = Json.format[Vote]
-  implicit val teamFormat = Json.format[Team]
-
   override val dao = new SalatDAO[Team, ObjectId](collection = mongoCollection("team")) {}
+
+  def getByTeamName(teamName: String): Either[String, Team] = {
+    dao.findOne(MongoDBObject("profileInfo.team" -> teamName)) match {
+      case None => Left(s"Team with name $teamName does not exist")
+      case Some(team) => Right(team)
+    }
+  }
 }
