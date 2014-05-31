@@ -1,0 +1,25 @@
+@(loginForm: Form[LoginData])
+
+@main {
+  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/login.css")'>
+} {
+  <div id="login-form">
+    <form method="POST" action="@routes.Application.loginSubmit()">
+      <div class="input-container">
+        <input name="team" type="text" placeholder="Team name"/>
+        @loginForm("team").error.map { error =>
+          <span class="error">@Messages(error.message, error.args: _*)</span>
+        }
+      </div>
+      <div class="input-container">
+        <input name="password" type="password" placeholder="Password"/>
+        @loginForm("password").error.map { error =>
+          <span class="error">@Messages(error.message, error.args: _*)</span>
+        }
+      </div>
+      <div class="input-container">
+        <input class="btn btn-success btn-lg" type="submit" value="Log In"/>
+      </div>
+    </form>
+  </div>
+}

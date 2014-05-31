@@ -5,5 +5,13 @@
 # Home page
 GET     /                           controllers.Application.index
 
+GET     /login                      controllers.Application.login
+
+POST    /login                      controllers.Application.loginSubmit
+
+GET     /register                   controllers.Application.register
+
+POST    /team/:name                 controllers.Team.addTeam(name)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
