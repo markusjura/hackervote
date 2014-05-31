@@ -16,31 +16,29 @@ object TeamController extends Controller {
     )(LoginData.apply)(LoginData.unapply)
   }
 
-  def displayForm = Action {
+  def displayForm = Action { implicit request =>
     Ok(views.html.register(registrationForm))
   }
 
-  def submitForm = Action { request =>
+  def submitForm = Action { implicit request =>
+
+    registrationForm.bindFromRequest.fold(onError, onSuccess)
+  }
+
+  private def onError(badForm: Form[LoginData])(implicit request: RequestHeader) =
+      BadRequest(views.html.register(badForm))
 
 
+  private def onSuccess(data: LoginData)(implicit request: RequestHeader) = {
 
-    val hackervoteTeam = Team(
+    val newTeam = Team(
       profileInfo = ProfileInfo(
-        team = "hackervote",
-        password = "password"
+        team = data.team,
+        password = data.password
       )
     )
 
-    Team.add(hackervoteTeam)
-
-    Ok("Added team - Check console")
-  }
-
-  private def onError(badForm: Form[LoginData]) =
-      BadRequest(views.html.reqister(badForm))
-
-
-  private def onSuccess(data: LoginData) = {
+    Team.add(newTeam)
 
     Redirect(routes.Application.index()).withSession("team" -> data.team)
   }

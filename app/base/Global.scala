@@ -1,6 +1,5 @@
 package base
 
-import play.api.GlobalSettings
 import com.mongodb.casbah.{MongoURI, MongoConnection}
 import com.mongodb.casbah.commons.conversions.scala._
 import com.mongodb.casbah.commons.MongoDBObject
