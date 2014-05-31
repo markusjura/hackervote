@@ -5,6 +5,10 @@
 } {
   <div id="register-form">
     <form method="post" action="@routes.TeamController.submitForm()">
+      @registrationForm.globalError.map { error =>
+        <span class="error">@error.message</span>
+      }
+
       <div class="input-container">
         <input name="team" type="text" placeholder="Team name"/>
         @registrationForm("team").error.map { error =>

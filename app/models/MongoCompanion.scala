@@ -1,11 +1,10 @@
 package models
 
 import com.mongodb.casbah.Imports._
-import mongoContext._
 import com.novus.salat.dao._
-import play.api.Play.current
 import com.mongodb.casbah.commons.MongoDBObject
 import scala.reflect.ClassTag
+import com.mongodb.WriteConcern.ACKNOWLEDGED
 
 /**
  * Trait for the companion object of an entity object
@@ -68,7 +67,7 @@ trait MongoCompanion[M <: MongoObject, ObjectId] extends ModelCompanion[M, Objec
    * No write concern => If unique key has been violated the entry will not be added but the new ObjectId will be returned
    */
   def add(m: M): ObjectId =
-    dao.insert(m, dao.collection.writeConcern).get
+    dao.insert(m, ACKNOWLEDGED).get
 
   /**
    * Add multiple entries by object

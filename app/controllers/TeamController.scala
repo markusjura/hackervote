@@ -6,6 +6,8 @@ import play.api.data.Form
 import play.api.data.Forms._
 import models.LoginData
 import models.ProfileInfo
+import com.mongodb.MongoException.DuplicateKey
+import play.Logger
 
 object TeamController extends Controller {
 
@@ -17,7 +19,7 @@ object TeamController extends Controller {
   }
 
   def displayForm = Action { implicit request =>
-    Ok(views.html.register(registrationForm))
+    Ok(views.html.register(registrationForm)).withNewSession
   }
 
   def submitForm = Action { implicit request =>
@@ -38,9 +40,19 @@ object TeamController extends Controller {
       )
     )
 
-    Team.add(newTeam)
-
-    Redirect(routes.Application.index()).withSession("team" -> data.team)
+    try {
+      Team.add(newTeam)
+      Redirect(routes.Application.index()).withSession("team" -> data.team)
+    } catch {
+      case dk: DuplicateKey => {
+        Logger.info(s"duplicate key $dk")
+        BadRequest(views.html.register(registrationForm.fill(data).withGlobalError("Team already exists")))
+      }
+      case e: Exception => {
+        Logger.info(s"exception $e")
+        BadRequest(views.html.register(registrationForm.fill(data).withGlobalError("Can't create a team")))
+      }
+    }
   }
 
 }
