@@ -5,14 +5,27 @@ import play.api.mvc._
 import models._
 import play.api.data.Form
 import play.api.data.Forms._
+import play.api.mvc.Security._
 
 object Application extends Controller {
 
-  def index = Action { request =>
-    Ok("This is our index page")
+  /**
+   * Retrieve team from session
+   */
+  def requestTeam(request: RequestHeader) = request.session.get("team")
+
+  /**
+   * Redirect to login page
+   */
+  def onUnauthorized(request: RequestHeader) = Redirect(routes.Application.login)
+
+  def index = Authenticated(requestTeam, onUnauthorized) { team =>
+    Action { implicit request =>
+      Ok(views.html.index())
+    }
   }
 
-  def login = Action { request =>
+  def login = Action { implicit request =>
     Ok(views.html.login(loginForm))
   }
 
@@ -27,14 +40,23 @@ object Application extends Controller {
     loginForm.bindFromRequest.fold(onError, onSuccess)
   }
 
-  private def onError(badForm: Form[LoginData]) =
+  private def onError(badForm: Form[LoginData])(implicit request: RequestHeader) =
     BadRequest(views.html.login(badForm))
 
-  private def onSuccess(loginData: LoginData) = {
+  private def onSuccess(loginData: LoginData)(implicit request: RequestHeader) = {
+    Team.getByTeamName(loginData.team).fold(
+      error => BadRequest(views.html.login(loginForm.fill(loginData).withGlobalError(error))),
+      team => {
+        if(team.profileInfo.password == loginData.password)
+          Redirect(routes.Application.index()).withSession("team" -> loginData.team)
+        else
+          BadRequest(views.html.login(loginForm.fill(loginData).withGlobalError("Password is incorrect.")))
+      }
+    )
+  }
 
-
-    Redirect(routes.Application.index()).withSession("team" -> loginData.team)
-
+  def logout = Action { implicit request =>
+    Redirect(routes.Application.login()).withNewSession
   }
 
 

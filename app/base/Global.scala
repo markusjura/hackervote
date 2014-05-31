@@ -17,6 +17,7 @@ object Global extends GlobalSettings {
     val db = connection(conf.getString("mongodb.default.db").get)
 
     // Ensure indexes - collections and columns
+    db("team").ensureIndex(MongoDBObject("profileInfo.team" -> 1), "teamname_1", true)
     db("team").ensureIndex("score")
 
     // Register Joda time conversion..

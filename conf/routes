@@ -9,6 +9,8 @@ GET     /login                      controllers.Application.login
 
 POST    /login                      controllers.Application.loginSubmit
 
+GET     /logout                     controllers.Application.logout
+
 GET     /register                   controllers.Application.register
 
 PUT     /team                       controllers.TeamController.addTeam
