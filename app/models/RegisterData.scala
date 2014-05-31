@@ -8,6 +8,8 @@ import com.mongodb.casbah.Imports
 import se.radley.plugin.salat._
 import com.novus.salat.dao._
 import play.api.Play.current
+import play.api.libs.json.Json
+import utils.json.JsonReadsWrites._
 
 case class Team(id: ObjectId = new ObjectId,
                 profileInfo: ProfileInfo,
@@ -25,6 +27,11 @@ case class ProfileInfo(team: String,
 case class Member(name: String, email: String)
 
 object Team extends MongoCompanion[Team, ObjectId] {
+
+  implicit val memberFormat = Json.format[Member]
+  implicit val profileInfoFormat = Json.format[ProfileInfo]
+  implicit val voteFormat = Json.format[Vote]
+  implicit val teamFormat = Json.format[Team]
 
   override val dao = new SalatDAO[Team, ObjectId](collection = mongoCollection("team")) {}
 }
