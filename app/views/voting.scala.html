@@ -12,7 +12,29 @@
 @main {
   <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/form.css")'>
 } {
-  <h1>Vote the most awesome apps!</h1>
+  <h1>Teams</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Team</th>
+        <th>Github URL</th>
+        <th>App URL</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(team <- teams) {
+        <tr>
+          <td>@team.profileInfo.team</td>
+          <td><a href="@team.profileInfo.githubUrl" target="_blank">@team.profileInfo.githubUrl</a></td>
+          <td><a href="@team.profileInfo.appUrl" target="_blank">@team.profileInfo.appUrl</a></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <h1>Voting</h1>
+
+
   <div id="form">
     <form method="POST" action="@routes.VotingController.votingSubmit()">
       <div class="input-container">
