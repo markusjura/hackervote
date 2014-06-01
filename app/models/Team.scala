@@ -17,7 +17,7 @@ case class ProfileInfo(team: String,
                        password: String,
                        githubUrl: Option[String] = None,
                        appUrl: Option[String] = None,
-                       members: Option[List[Member]] = None)
+                       members: List[Member])
 
 case class Member(name: String, email: String)
 

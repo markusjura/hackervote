@@ -5,15 +5,18 @@
 # Home page
 GET     /                           controllers.Application.index
 
-GET     /login                      controllers.Application.login
+GET     /login                      controllers.AuthController.login
 
-POST    /login                      controllers.Application.loginSubmit
+POST    /login                      controllers.AuthController.loginSubmit
 
-GET     /logout                     controllers.Application.logout
+GET     /logout                     controllers.AuthController.logout
 
-GET     /register                   controllers.TeamController.displayForm
+GET     /register                   controllers.AuthController.register
 
-POST    /register                   controllers.TeamController.submitForm
+POST    /register                   controllers.AuthController.registerSubmit
+
+GET     /voting                     controllers.VotingController.voting
+POST    /voting                     controllers.VotingController.votingSubmit
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

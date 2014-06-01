@@ -1,0 +1,32 @@
+@(teams: Seq[Team], votingForm: Form[Vote])(implicit session: Session)
+
+@listTeams(place: String, default: String) = {
+  <select class="form-control" name="@place">
+    <option disabled="true" selected>@default</option>
+    @for(team <- teams) {
+      <option value="@team.id">@team.profileInfo.team</option>
+    }
+  </select>
+}
+
+@main {
+  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/form.css")'>
+} {
+  <h1>Vote the most awesome apps!</h1>
+  <div id="form">
+    <form method="POST" action="@routes.VotingController.votingSubmit()">
+      <div class="input-container">
+        @votingForm.globalError.map { error =>
+          <span class="error">@error.message</span>
+        }
+
+        @listTeams("firstPlace", "-- Select First Place --")
+        @listTeams("secondPlace", "-- Select Second Place --")
+        @listTeams("thirdPlace", "-- Select Third Place --")
+      </div>
+      <div class="input-container">
+        <input class="btn btn-success btn-lg" style="width:33%" type="submit" value="Vote"/>
+      </div>
+    </form>
+  </div>
+}

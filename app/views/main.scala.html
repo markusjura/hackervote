@@ -25,9 +25,9 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
               @if(session.get("team").isDefined) {
-                <li><a href='@routes.Application.logout()'>Logout</a></li>
+                <li><a href='@routes.AuthController.logout()'>Logout</a></li>
               } else {
-                <li><a href='@routes.TeamController.submitForm()'>Register</a></li>
+                <li><a href='@routes.AuthController.register()'>Register</a></li>
               }
             </ul>
           </div><!-- /.navbar-collapse -->

@@ -6,6 +6,15 @@
   width: 300px;
 }
 
+#form .margin-left {
+  margin-left: 10px;
+}
+
+#form select {
+  width: 33% !important;
+  margin: 15px 0;
+}
+
 #form input[type="text"], input[type="password"] {
   font-size: 1.5em;
   padding: 5px 10px;
@@ -15,4 +24,16 @@
   color: firebrick;
   margin-left: 10px;
   font-size: 1.1em;
+}
+
+#form ul {
+  padding: 0px;
+}
+
+#form li {
+  list-style: none;
+}
+
+#form #add-member {
+  font-size: 1.2em;
 }

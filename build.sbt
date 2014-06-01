@@ -10,5 +10,6 @@ libraryDependencies ++= Seq(
   ws,
   "org.webjars" % "bootstrap" % "3.1.1",
   "org.webjars" % "jquery" % "1.11.1",
-  "se.radley" %% "play-plugins-salat" % "1.4.0"
+  "se.radley" %% "play-plugins-salat" % "1.4.0",
+  "org.webjars" % "font-awesome" % "4.1.0"
 )

@@ -1,7 +1,16 @@
-@()(implicit session: Session)
+@(result: String)(implicit session: Session)
 
 @main {
-  @* Custom Head *@
+  <script type="text/javascript" src='@routes.Assets.at("js/Chart.js")'></script>
+  <script type="text/javascript" src='@routes.Assets.at("js/index.js")'></script>
+  <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/index.css")'>
 } {
-  <h1>Index</h1>
+
+  <h1>And the winner is..</h1>
+
+  <canvas id="votingChart"></canvas>
+
+  <script type="text/javascript">
+    result = JSON.parse('@play.twirl.api.Html(result)');
+  </script>
 }

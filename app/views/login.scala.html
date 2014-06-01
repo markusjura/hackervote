@@ -4,19 +4,19 @@
   <link rel="stylesheet" media="screen" href='@routes.Assets.at("css/form.css")'>
 } {
   <div id="form">
-    <form method="POST" action="@routes.Application.loginSubmit()">
+    <form method="POST" action="@routes.AuthController.loginSubmit()">
       @loginForm.globalError.map { error =>
         <span class="error">@error.message</span>
       }
 
       <div class="input-container">
-        <input name="team" type="text" placeholder="Team name"/>
+        <input name="team" type="text" placeholder="Team name" value='@loginForm("team").value' />
         @loginForm("team").error.map { error =>
           <span class="error">@Messages(error.message, error.args: _*)</span>
         }
       </div>
       <div class="input-container">
-        <input name="password" type="password" placeholder="Password"/>
+        <input name="password" type="password" placeholder="Password" value='@loginForm("password").value' />
         @loginForm("password").error.map { error =>
           <span class="error">@Messages(error.message, error.args: _*)</span>
         }
