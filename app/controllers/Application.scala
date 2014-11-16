@@ -8,8 +8,11 @@ object Application extends Secured {
 
   def index = AuthWithTeam { implicit teamRequest =>
     teamRequest.team.vote match {
-      case None => Redirect(routes.VotingController.voting())
-      case Some(vote) =>
+      // Redirect
+      case None if(teamRequest.team.profileInfo.team != "admin") => Redirect(routes.VotingController.voting())
+
+      // Only admin views the voting results
+      case admin if(teamRequest.team.profileInfo.team == "admin") =>
         // Take first 3 teams. Take more teams as long as the score equals the score of the previous team
         val teams = Team.all.sortWith(_.score > _.score).foldLeft(List.empty[Team]) { (teams, currentTeam) =>
           teams match {
@@ -24,6 +27,10 @@ object Application extends Secured {
         val result = VotingResult(names, scores)
 
         Ok(views.html.index(Json.stringify(Json.toJson(result))))
+
+      // User votes => Show success view
+      case Some(_) =>
+        Ok(views.html.voted())
     }
   }
 }
